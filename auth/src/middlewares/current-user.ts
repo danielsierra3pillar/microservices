@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+
 interface UserPayload {
   id: string;
   email: string;
@@ -18,6 +19,7 @@ export const currentUser = (
   res: Response,
   next: NextFunction
 ) => {
+  console.log('wtf', req.session);
   if (!req.session?.jwt) {
     return next();
   }
