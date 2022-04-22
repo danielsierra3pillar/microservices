@@ -1,9 +1,6 @@
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
-import {
-  requireAuth,
-  validateRequest,
-} from '@danielsierra3pillartickets/common';
+import { requireAuth, validateRequest } from '@cygnetops/common';
 import { Ticket } from '../models/ticket';
 
 const router = express.Router();

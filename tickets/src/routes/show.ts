@@ -1,10 +1,5 @@
 import express, { Request, Response } from 'express';
-import { body } from 'express-validator';
-import {
-  NotFoundError,
-  requireAuth,
-  validateRequest,
-} from '@danielsierra3pillartickets/common';
+import { NotFoundError } from '@cygnetops/common';
 import { Ticket } from '../models/ticket';
 
 const router = express.Router();
