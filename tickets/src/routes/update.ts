@@ -5,7 +5,7 @@ import {
   NotFoundError,
   requireAuth,
   NotAuthorizedError,
-} from '@cygnetops/common';
+} from '@danielsierra3pillartickets/common';
 import { Ticket } from '../models/ticket';
 
 const router = express.Router();
@@ -26,7 +26,8 @@ router.put(
     if (!ticket) {
       throw new NotFoundError();
     }
-
+    console.log(ticket);
+    console.log(req.currentUser);
     if (ticket.userId !== req.currentUser!.id) {
       throw new NotAuthorizedError();
     }
