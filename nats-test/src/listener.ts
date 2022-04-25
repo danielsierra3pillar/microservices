@@ -10,6 +10,11 @@ const client = nats.connect('ticketing', randomBytes(4).toString('hex'), {
 client.on('connect', () => {
   console.log('Listener connected to NATS');
 
+  client.on('close', () => {
+    console.log('NATS connection closed!!');
+    process.exit();
+  });
+
   // Notify NATS manually that a msessage has been recieved
   const options = client.subscriptionOptions().setManualAckMode(true);
 
@@ -34,3 +39,8 @@ client.on('connect', () => {
     message.ack();
   });
 });
+
+// interrupt or terminate request from terminal
+// close client
+process.on('SIGINT', () => client.close());
+process.on('SIGTERM', () => client.close());
