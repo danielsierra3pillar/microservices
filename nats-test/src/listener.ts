@@ -16,11 +16,18 @@ client.on('connect', () => {
   });
 
   // Notify NATS manually that a msessage has been recieved
-  const options = client.subscriptionOptions().setManualAckMode(true);
+  const options = client
+    .subscriptionOptions()
+    .setManualAckMode(true)
+    .setDeliverAllAvailable()
+    // This option allow us to get all the past messages we
+    // didnt recieved only 1 time, the name has to be the same
+    // always to get this
+    .setDurableName('accounting-service');
 
   const subscription = client.subscribe(
     'ticket:created',
-    'orders-service-queue-group',
+    'queue-group-name',
     options
   );
   // @ts-ignore
