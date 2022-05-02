@@ -5,6 +5,7 @@ import {
   validateRequest,
 } from '@danielsierra3pillartickets/common';
 import { Ticket } from '../models/ticket';
+import { TicketCreatedPublisher } from '../events/publishers/ticket-created-publisher';
 
 const router = express.Router();
 
@@ -27,6 +28,13 @@ router.post(
       userId: req.currentUser!.id,
     });
     await ticket.save();
+
+    new TicketCreatedPublisher(client).publish({
+      id: ticket.id,
+      title: ticket.title,
+      price: ticket.price,
+      userId: ticket.id,
+    });
 
     res.status(201).send(ticket);
   }
